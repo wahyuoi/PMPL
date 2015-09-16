@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 from lists.views import home_page
-
+import sys
 class ItemModelTest(TestCase):
     def test_saving_and_retrieving_items(self):
         first_item = Item()
@@ -60,4 +60,16 @@ class HomePageTest(TestCase):
 
         self.assertIn('itemey 1', response.content.decode())
         self.assertIn('itemey 2', response.content.decode())
+
+    def test_auto_comment(self):
+        items = Item.objects.count()
+        request = HttpRequest()
+        response = home_page(request)
+        if items == 0:
+            self.assertIn("yey, waktunya berlibur", response.content.decode())
+        elif items < 5:
+            self.assertIn("sibuk tapi santai", response.content.decode())
+        else:
+            self.assertIn("oh tidak", response.content.decode())
+        
 

@@ -10,7 +10,13 @@ def home_page(request):
     else:
         new_item_text = ''  #3
     items = Item.objects.all()        
+    if items.count() == 0:
+        comment = "yey, waktunya berlibur"
+    elif items.count() < 5:
+        comment = "sibuk tapi santai"
+    else:
+        comment = "oh tidak"
     return render(request, 'home.html', {
         'items': items,  #4
-        'itemscount' : items.count(),
+        'comment' : comment,
     })
