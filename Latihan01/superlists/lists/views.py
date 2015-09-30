@@ -3,12 +3,26 @@ from django.shortcuts import render, redirect
 from lists.models import Item, List
 
 def home_page(request):
-    return render(request, 'home.html')
+    cnt = Item.objects.count()
+    if (cnt==0):
+        comment = "yey, waktunya berlibur"
+    elif (cnt<5):
+        comment = "sibuk tapi santai"
+    else :
+        comment = "oh tidak"
+    return render(request, 'home.html', {'comment':comment})
 
 def view_list(request, list_id):
     list_ = List.objects.get(id=list_id)
     items = Item.objects.filter(list=list_)
-    return render(request, 'list.html', {'list':list_})
+    cnt = Item.objects.count()
+    if (cnt==0):
+        comment = "yey, waktunya berlibur"
+    elif (cnt<5):
+        comment = "sibuk tapi santai"
+    else :
+        comment = "oh tidak"
+    return render(request, 'list.html', {'list':list_, 'comment':comment})
 
 def new_list(request):
     list_ = List.objects.create()
