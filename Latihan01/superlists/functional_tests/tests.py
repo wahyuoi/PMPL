@@ -1,9 +1,9 @@
 from selenium import webdriver
-from django.test import LiveServerTestCase
 from selenium.webdriver.common.keys import Keys
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import unittest
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
@@ -16,7 +16,7 @@ class NewVisitorTest(LiveServerTestCase):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         self.browser.get(self.live_server_url)
-        self.assertIn('Home Page', self.browser.title)
+        self.assertIn('To-Do Lists', self.browser.title)
 	#self.assertIn('To-Do', self.browser.title)
 		
         header_text = self.browser.find_element_by_tag_name('h1').text
@@ -77,7 +77,7 @@ class NewVisitorTest(LiveServerTestCase):
         
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
-            inputbox.location['x'] + inputbox.size['width'] / 2,
+            inputbox.location['x'] + (inputbox.size['width'] / 2),
             512,
             delta=5
         )
