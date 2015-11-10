@@ -13,6 +13,8 @@ def home_page(request):
     else :
         comment = "oh tidak"
     return render(request, 'home.html', {'comment':comment})
+def blog_view(request):
+    return render(request, 'blog.html', {'title' : 'Blog Gede'})
 
 def view_list(request, list_id):
     list_ = List.objects.get(id=list_id)
