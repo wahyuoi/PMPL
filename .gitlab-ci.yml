@@ -12,7 +12,7 @@ test:
     - ../virtualenv/bin/pip install -r requirements.txt
     - ../virtualenv/bin/python3 manage.py collectstatic --noinput
     - ../virtualenv/bin/python3 manage.py migrate --noinput
-    - python3 manage.py test
+    - python3 manage.py test lists
     - echo "instruksi untuk test UI"
     only :
     - master
